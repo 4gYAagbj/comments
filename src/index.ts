@@ -29,6 +29,9 @@ app.get('/', async (c) => {
   const gh = await GitHub.initialize(appId, formattedPrivateKey, organizationSlug, repositorySlug)
   const staticmanFile = await gh.getFileFromRepository('staticman.yml', repositoryBranch)
   if (!staticmanFile?.content) {
+    console.log('organizationSlug: '+organizationSlug)
+    console.log('repositorySlug: '+repositorySlug)
+    console.log('repositoryBranch: '+repositoryBranch)
     return c.text('Missing staticman.yml', 500);
   }
 
