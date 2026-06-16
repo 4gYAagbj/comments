@@ -1,4 +1,5 @@
 import githubAppJwt from 'universal-github-app-jwt'
+import { gatherResponse } from './util'
 
 const shouldFakeUserAgent = false
 
@@ -35,6 +36,8 @@ class GitHub {
         const appInstallationsResponse = await fetch('https://api.github.com/app/installations', {
             headers
         })
+
+        const appInstallations = await gatherResponse(appInstallationsResponse)
 
         return null
     }
