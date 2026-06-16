@@ -6,6 +6,8 @@ app.get('/', (c) => {
   return c.text('Hello there!')
 })
 
+app.post('/api/handle/form', async c => c.text('Created', 201))
+
 app.all('*', () => new Response('These are not the droids you are looking for', { status: 404 }))
 
 export default app
