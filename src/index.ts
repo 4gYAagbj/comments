@@ -21,7 +21,7 @@ app.get('/', (c) => {
   const formattedPrivateKey = env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n')
   const organizationSlug = env.GITHUB_ORGANIZATION_SLUG
   const repositorySlug = env.GITHUB_REPOSITORY_SLUG
-  return c.text('Hello there!')
+  return c.text('Hello you there!')
 })
 
 app.post('/api/handle/form', async c => {
