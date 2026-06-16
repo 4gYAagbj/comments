@@ -4,6 +4,7 @@ import GitHub from './github'
 // Type definition to make type inference
 type Variables = {
   GITHUB_APP_ID: string
+  GITHUB_APP_PRIVATE_KEY: string
 }
 
 const app = new Hono<{ Variables: Variables }>()
