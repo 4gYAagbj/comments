@@ -9,6 +9,18 @@ type Variables = {
 const app = new Hono<{ Variables: Variables }>()
 
 app.get('/', (c) => {
+  const { req, env } = c
+  const currentUrl = req.url
+  const matches = currentUrl.match(/^(https?:\/\/[^/]+)/)
+  if (matches !== null) {
+    const baseUrl = matches[1]
+  }
+
+  const appId = env.GITHUB_APP_ID
+  // We need to format the private key to handle the line breaks accordingly
+  const formattedPrivateKey = env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n')
+  const organizationSlug = env.GITHUB_ORGANIZATION_SLUG
+  const repositorySlug = env.GITHUB_REPOSITORY_SLUG
   return c.text('Hello there!')
 })
 
