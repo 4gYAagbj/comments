@@ -1,4 +1,6 @@
 import { Hono } from 'hono'
+import yaml from 'yaml'
+import { Base64 } from 'js-base64'
 import GitHub from './github'
 
 // Type definition to make type inference
@@ -31,6 +33,9 @@ app.get('/', async (c) => {
   if (!staticmanFile?.content) {
     return c.text('Missing staticman.yml', 500);
   }
+
+  const staticmanConfigJson = yaml.parse(Base64.decode(staticmanFile.content));
+  const staticmanCommentsConfig = staticmanConfigJson.comments;
 
   return c.text('Hello you there!')
 })
