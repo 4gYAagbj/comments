@@ -9,7 +9,11 @@ app.get('/', (c) => {
 app.post('/api/handle/form', async c => {
   const { req, env } = c
   const currentUrl = req.url
-  const baseUrl = currentUrl.match(/^(https?:\/\/[^/]+)/)[1]
+  const matches = currentUrl.match(/^(https?:\/\/[^/]+)/)
+  if (matches !== null) {
+    const baseUrl = matches[1]
+  }
+
   return c.text('Created', 201)
 })
 
