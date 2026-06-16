@@ -15,12 +15,16 @@ app.get('/', (c) => {
   if (matches !== null) {
     const baseUrl = matches[1]
   }
-
+console.log('log number 1')
   const appId = env.GITHUB_APP_ID
+  console.log('log number 2')
   // We need to format the private key to handle the line breaks accordingly
   const formattedPrivateKey = env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n')
+    console.log('log number 3')
   const organizationSlug = env.GITHUB_ORGANIZATION_SLUG
+    console.log('log number 4')
   const repositorySlug = env.GITHUB_REPOSITORY_SLUG
+    console.log('log number 5')
   return c.text('Hello you there!')
 })
 
