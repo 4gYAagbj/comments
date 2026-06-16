@@ -47,6 +47,19 @@ class GitHub {
         const installationToken = await gatherResponse(installationTokenResponse)
         return installationToken
     }
+
+    async getFileFromRepository(filePath, branchFrom = 'master') {
+        const fileResponse = await fetch(
+            `https://api.github.com/repos/${this.organizationSlug}/${this.repositorySlug}/contents/${filePath}?ref=${branchFrom}`,
+            {
+                method: 'GET',
+                headers: this.headers
+            }
+        )
+
+        const file = await gatherResponse(fileResponse)
+        return file
+    }
 }
 
 export default GitHub
