@@ -9,6 +9,20 @@ const defaultHeaders = {
 }
 
 class GitHub {
+    constructor(appId, installationToken, organizationSlug, repositorySlug) {
+        // Constructor
+        this.installationToken = installationToken
+        this.organizationSlug = organizationSlug
+        this.repositorySlug = repositorySlug
+        this.headers = {
+            ...defaultHeaders,
+            'User-Agent': shouldFakeUserAgent
+                ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.200'
+                : `comment-worker-${appId}`,
+            'Authorization': `Bearer ${this.installationToken}`
+        };
+    }
+
     static async initialize(appId, privateKey, organizationSlug, repositorySlug) {
         const { token } = await githubAppJwt({
             id: appId,
