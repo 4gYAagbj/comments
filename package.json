@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "hono": "^4.12.25",
-    "universal-github-app-jwt": "^2.2.2"
+    "universal-github-app-jwt": "^2.2.2",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "wrangler": "^4.4.0"
