@@ -19,7 +19,7 @@ app.get('/', (c) => {
   }
   console.log('log number 1')
   const appId = env.GITHUB_APP_ID
-  console.log('log number 2')
+  console.log('log number 2 x')
   // We need to format the private key to handle the line breaks accordingly
   const formattedPrivateKey = env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n')
   console.log('log number 3')
