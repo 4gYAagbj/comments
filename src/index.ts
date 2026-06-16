@@ -10,7 +10,8 @@ type Variables = {
   GITHUB_APP_PRIVATE_KEY: string,
   GITHUB_ORGANIZATION_SLUG: string,
   GITHUB_REPOSITORY_SLUG: string,
-  GITHUB_REPOSITORY_BRANCH: string
+  GITHUB_REPOSITORY_BRANCH: string,
+  CW_DEBUG: boolean
 }
 
 const app = new Hono<{ Variables: Variables }>()
@@ -29,6 +30,7 @@ app.get('/', async (c) => {
   const organizationSlug = env.GITHUB_ORGANIZATION_SLUG
   const repositorySlug = env.GITHUB_REPOSITORY_SLUG
   const repositoryBranch = env.GITHUB_REPOSITORY_BRANCH
+  const shouldDebug = env.CW_DEBUG === 'true'
   const gh = await GitHub.initialize(appId, formattedPrivateKey, organizationSlug, repositorySlug)
   const staticmanFile = await gh.getFileFromRepository('staticman.yml', repositoryBranch)
   if (!staticmanFile?.content) {
@@ -52,6 +54,7 @@ app.get('/', async (c) => {
   // Handle the fields and options
   const fieldValues = body.fields || {}
   const optionValues = body.options || {}
+  if (shouldDebug) console.log(fieldValues)
 
   return c.text('Hello you there!')
 })
