@@ -38,8 +38,14 @@ class GitHub {
         })
 
         const appInstallations = await gatherResponse(appInstallationsResponse)
+        const installation = appInstallations.find(item => item.account.login === organizationSlug)
+        const installationTokenResponse = await fetch(installation.access_tokens_url, {
+            method: 'POST',
+            headers
+        })
 
-        return null
+        const installationToken = await gatherResponse(installationTokenResponse)
+        return installationToken
     }
 }
 
