@@ -56,6 +56,9 @@ app.get('/', async (c) => {
   const optionValues = body.options || {}
   if (shouldDebug) console.log(fieldValues)
 
+// Handle the default config from the yml file
+  const allowedFields = staticmanCommentsConfig?.allowedFields || []
+
   return c.text('Hello you there!')
 })
 
