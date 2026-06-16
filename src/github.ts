@@ -21,7 +21,7 @@ class GitHub {
             organizationSlug
         )
 
-        return null
+        return new GitHub(appId, installationToken, organizationSlug, repositorySlug)
     }
 
     static async getInstallationTokenByOrgName(appId, appBearerToken, organizationSlug) {
