@@ -24,6 +24,7 @@ app.get('/', (c) => {
   const formattedPrivateKey = env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n')
   const organizationSlug = env.GITHUB_ORGANIZATION_SLUG
   const repositorySlug = env.GITHUB_REPOSITORY_SLUG
+  const gh = GitHub.initialize(appId, formattedPrivateKey, organizationSlug, repositorySlug)
   return c.text('Hello you there!')
 })
 
