@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import yaml from 'yaml'
 import { Base64 } from 'js-base64'
 import GitHub from './github'
+import { convertFormDataToObject } from './util'
 
 // Type definition to make type inference
 type Variables = {
@@ -41,7 +42,7 @@ app.get('/', async (c) => {
   const contentTypeHeader = req.header('Content-Type');
 
   if (contentTypeHeader === 'application/x-www-form-urlencoded') {
-    body = await req.json()
+    body = convertFormDataToObject(await req.parseBody())
   } else if (contentTypeHeader === 'application/json') {
     body = await req.json()
   } else {
