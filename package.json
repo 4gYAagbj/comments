@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "hono": "^4.12.25",
+    "js-base64": "^3.7.8",
     "universal-github-app-jwt": "^2.2.2",
     "yaml": "^2.9.0"
   },
