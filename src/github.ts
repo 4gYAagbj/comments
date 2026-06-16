@@ -1,1 +1,4 @@
-export default GitHub;
+class GitHub {
+}
+
+export default GitHub
