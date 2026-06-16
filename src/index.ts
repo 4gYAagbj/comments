@@ -31,11 +31,26 @@ app.get('/', async (c) => {
   const gh = await GitHub.initialize(appId, formattedPrivateKey, organizationSlug, repositorySlug)
   const staticmanFile = await gh.getFileFromRepository('staticman.yml', repositoryBranch)
   if (!staticmanFile?.content) {
-    return c.text('Missing staticman.yml', 500);
+    return c.text('Missing staticman.yml', 500)
   }
 
-  const staticmanConfigJson = yaml.parse(Base64.decode(staticmanFile.content));
-  const staticmanCommentsConfig = staticmanConfigJson.comments;
+  const staticmanConfigJson = yaml.parse(Base64.decode(staticmanFile.content))
+  const staticmanCommentsConfig = staticmanConfigJson.comments
+
+  let body;
+  const contentTypeHeader = req.header('Content-Type');
+
+  if (contentTypeHeader === 'application/x-www-form-urlencoded') {
+    body = await req.json()
+  } else if (contentTypeHeader === 'application/json') {
+    body = await req.json()
+  } else {
+    return c.text('Unsupported Content-Type', 400)
+  }
+
+  // Handle the fields and options
+  const fieldValues = body.fields || {}
+  const optionValues = body.options || {}
 
   return c.text('Hello you there!')
 })
