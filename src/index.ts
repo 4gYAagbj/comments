@@ -6,7 +6,8 @@ type Variables = {
   GITHUB_APP_ID: string,
   GITHUB_APP_PRIVATE_KEY: string,
   GITHUB_ORGANIZATION_SLUG: string,
-  GITHUB_REPOSITORY_SLUG: string
+  GITHUB_REPOSITORY_SLUG: string,
+  GITHUB_REPOSITORY_BRANCH: string
 }
 
 const app = new Hono<{ Variables: Variables }>()
@@ -24,7 +25,13 @@ app.get('/', async (c) => {
   const formattedPrivateKey = env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n')
   const organizationSlug = env.GITHUB_ORGANIZATION_SLUG
   const repositorySlug = env.GITHUB_REPOSITORY_SLUG
+  const repositoryBranch = env.GITHUB_REPOSITORY_BRANCH
   const gh = await GitHub.initialize(appId, formattedPrivateKey, organizationSlug, repositorySlug)
+  const staticmanFile = await gh.getFileFromRepository('staticman.yml', repositoryBranch)
+  if (!staticmanFile?.content) {
+    return c.text('Missing staticman.yml', 500);
+  }
+
   return c.text('Hello you there!')
 })
 
