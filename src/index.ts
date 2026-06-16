@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import GitHub from './github'
 
 // Type definition to make type inference
 type Variables = {
@@ -20,6 +21,11 @@ app.post('/api/handle/form', async c => {
   }
 
   const appId = env.GITHUB_APP_ID
+  // We need to format the private key to handle the line breaks accordingly
+  // const formattedPrivateKey = env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n')
+  // const organizationSlug = env.GITHUB_ORGANIZATION_SLUG
+  // const repositorySlug = env.GITHUB_REPOSITORY_SLUG
+  // const gh = await GitHub.initialize(appId, formattedPrivateKey, organizationSlug, repositorySlug)
   return c.text('Created', 201)
 })
 
