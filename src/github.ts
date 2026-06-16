@@ -1,5 +1,5 @@
 class GitHub {
-    static initialize(appId, privateKey, organizationSlug, repositorySlug) {
+    static async initialize(appId, privateKey, organizationSlug, repositorySlug) {
         return null
     }
 }
