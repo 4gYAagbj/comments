@@ -1,6 +1,11 @@
 import { Hono } from 'hono'
 
-const app = new Hono()
+// Type definition to make type inference
+type Variables = {
+  GITHUB_APP_ID: string
+}
+
+const app = new Hono<{ Variables: Variables }>()
 
 app.get('/', (c) => {
   return c.text('Hello there!')
@@ -14,6 +19,7 @@ app.post('/api/handle/form', async c => {
     const baseUrl = matches[1]
   }
 
+  const appId = env.GITHUB_APP_ID
   return c.text('Created', 201)
 })
 
