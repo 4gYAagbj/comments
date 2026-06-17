@@ -31,6 +31,26 @@ app.use(
   })
 )
 
+app.use(
+  '/api3/*',
+  cors({
+    origin: ['https://example.com', 'https://example.org'],
+  })
+)
+
+// Or you can use "function"
+app.use(
+  '/api4/*',
+  cors({
+    // `c` is a `Context` object
+    origin: (origin, c) => {
+      return origin.endsWith('.example.com')
+        ? origin
+        : 'http://example.com'
+    },
+  })
+)
+
 app.get('/', async (c) => {
   const { req, env } = c
   const currentUrl = req.url
