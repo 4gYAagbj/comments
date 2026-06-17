@@ -46,15 +46,15 @@ app.use(
     origin: (origin, c) => {
       return origin.endsWith('.example.com')
         ? origin
-        : 'http://example.com'
+        : 'http://knurra.com'
     },
   })
 )
 
 app.get('/api/hello',c=>c.text('hello stupid'))
-app.get('/api2/hello',c=>c.text('hello stupid'))
-app.get('/api3/hello',c=>c.text('hello stupid'))
-app.get('/api4/hello',c=>c.text('hello stupid'))
+app.get('/api2/hello',c=>c.text('hello stupid#2'))
+app.get('/api3/hello',c=>c.text('hello stupid#3'))
+app.get('/api4/hello',c=>c.text('hello stupid#4'))
 
 app.get('/korv', async (c) => {
   const { req, env } = c
