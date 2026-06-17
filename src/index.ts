@@ -18,7 +18,7 @@ type Variables = {
 const app = new Hono<{ Variables: Variables }>()
 
 // CORS should be called before the route
-app.use('/api/*', cors())
+// app.use('/api/*', cors())
 app.use(
   '/api2/*',
   cors({
