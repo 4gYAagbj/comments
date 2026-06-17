@@ -51,7 +51,12 @@ app.use(
   })
 )
 
-app.get('/', async (c) => {
+app.get('/api/hello',c=>c.text('hello stupid'))
+app.get('/api2/hello',c=>c.text('hello stupid'))
+app.get('/api3/hello',c=>c.text('hello stupid'))
+app.get('/api4/hello',c=>c.text('hello stupid'))
+
+app.get('/korv', async (c) => {
   const { req, env } = c
   const currentUrl = req.url
   const matches = currentUrl.match(/^(https?:\/\/[^/]+)/)
