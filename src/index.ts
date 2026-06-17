@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
 import yaml from 'yaml'
 import { Base64 } from 'js-base64'
 import GitHub from './github'
@@ -15,6 +16,20 @@ type Variables = {
 }
 
 const app = new Hono<{ Variables: Variables }>()
+
+// CORS should be called before the route
+app.use('/api/*', cors())
+app.use(
+  '/api2/*',
+  cors({
+    origin: 'http://example.com',
+    allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
+    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
+    maxAge: 600,
+    credentials: true,
+  })
+)
 
 app.get('/', async (c) => {
   const { req, env } = c
