@@ -18,44 +18,13 @@ type Variables = {
 const app = new Hono<{ Variables: Variables }>()
 
 // CORS should be called before the route
-// app.use('/api/*', cors())
-// app.use(
-//   '/api2/*',
-//   cors({
-//     origin: 'http://example.com',
-//     allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
-//     allowMethods: ['POST', 'GET', 'OPTIONS'],
-//     exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
-//     maxAge: 600,
-//     credentials: true,
-//   })
-// )
-
-// app.use(
-//   '/api3/*',
-//   cors({
-//     origin: ['https://example.com', 'https://example.org'],
-//   })
-// )
-
-// // Or you can use "function"
-// app.use(
-//   '/api4/*',
-//   cors({
-//     // `c` is a `Context` object
-//     origin: (origin, c) => {
-//       return origin.endsWith('.example.com')
-//         ? origin
-//         : 'http://knurra.com'
-//     },
-//   })
-// )
+app.use('*', cors({ origin: 'www.example.com' }));
 // Basic CORS middleware
-app.use('*', cors({
-  origin: '*',               // Allow all origins; adjust for security
-  allowMethods: ['PUT','DELETE'],
-  allowHeaders: ['Content-Type','Authorization']
-}))
+// app.use('*', cors({
+//   origin: '*',               // Allow all origins; adjust for security
+//   allowMethods: ['PUT','DELETE'],
+//   allowHeaders: ['Content-Type','Authorization']
+// }))
 
 app.get('/api/hello',c=>c.text('hello stupid'))
 app.get('/api2/hello',c=>c.text('hello stupid#2'))
