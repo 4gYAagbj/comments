@@ -45,6 +45,7 @@ app.use('*', async (c, next) => {
     // Continue to route handler
     await next()
   } else {
+    console.log('Kolla: '+origin);
     // Reject requests from other origins
     return c.text('Forbidden', 403)
   }
