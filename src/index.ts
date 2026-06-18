@@ -31,7 +31,7 @@ const ALLOWED_ORIGIN = 'https://example.com'; // Replace with your specific orig
 // Middleware to check Origin header
 app.use('*', async (c, next) => {
   const origin = c.req.header('Origin')
-  if (origin === ALLOWED_ORIGIN) {
+  if (!origin || origin === ALLOWED_ORIGIN) {
     // Set CORS headers for allowed origin
     c.header('Access-Control-Allow-Origin', ALLOWED_ORIGIN)
     c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
