@@ -25,6 +25,30 @@ app.use('*', cors({ origin: 'www.example.com' }));
 //   allowMethods: ['PUT','DELETE'],
 //   allowHeaders: ['Content-Type','Authorization']
 // }))
+// Define your allowed origin
+const ALLOWED_ORIGIN = 'https://example.com'; // Replace with your specific origin
+
+// Middleware to check Origin header
+app.use('*', async (c, next) => {
+  const origin = c.req.header('Origin')
+  if (origin === ALLOWED_ORIGIN) {
+    // Set CORS headers for allowed origin
+    c.header('Access-Control-Allow-Origin', ALLOWED_ORIGIN)
+    c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    c.header('Access-Control-Allow-Headers', 'Content-Type')
+    
+    // Handle preflight requests
+    if (c.req.method === 'OPTIONS') {
+      return c.text('OK')
+    }
+    
+    // Continue to route handler
+    await next()
+  } else {
+    // Reject requests from other origins
+    return c.text('Forbidden', 403)
+  }
+})
 
 app.get('/api/hello',c=>c.text('hello stupid'))
 app.get('/api2/hello',c=>c.text('hello stupid#2'))
